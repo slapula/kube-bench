@@ -1,2 +1,86 @@
 ---
 ## Version-specific settings that override the values in cfg/config.yaml
+
+master:
+  components:
+    - server
+    - apiserver
+    - scheduler
+    - controllermanager
+
+  server:
+    cafile:
+      - "/var/lib/rancher/k3s/server/tls/server-ca.crt"
+    svc:
+      # These paths must also be included
+      #  in the 'confs' property below
+      - "/etc/systemd/system/k3s.service"
+    bins:
+      - "k3s server"
+    kubeconfig:
+      - "/var/lib/rancher/k3s/server/cred/admin.kubeconfig"
+    confs:
+      - "/etc/rancher/k3s/k3s.yaml"
+      ## Due to the fact that the kubelet might be configured
+      ## without a kubelet-config file, we use a work-around
+      ## of pointing to the systemd service file (which can also
+      ## hold kubelet configuration).
+      ## Note: The following paths must match the one under 'svc'
+      - "/etc/systemd/system/k3s.service"
+
+  apiserver:
+    optional: true
+    bins:
+      - "k3s server --kube-apiserver-arg"
+    confs:
+      - /var/lib/rancher/k3s/server/cred/api-server.kubeconfig
+
+  scheduler:
+    optional: true
+    bins:
+      - "k3s server --kube-scheduler-arg"
+    confs:
+      - /var/lib/rancher/k3s/server/cred/scheduler.kubeconfig
+
+  controllermanager:
+    optional: true
+    bins:
+      - "k3s server --kube-controller-manager-arg"
+    confs:
+      - /var/lib/rancher/k3s/server/cred/controller.kubeconfig
+
+node:
+  components:
+    - agent
+    - proxy
+
+  agent:
+    cafile:
+      - "/var/lib/rancher/k3s/agent/client-ca.crt"
+    svc:
+      # These paths must also be included
+      #  in the 'confs' property below
+      - "/etc/systemd/system/k3s.service"
+    bins:
+      - "k3s agent"
+    kubeconfig:
+      - "/var/lib/rancher/k3s/agent/kubelet.kubeconfig"
+    confs:
+      - "/etc/rancher/k3s/k3s.yaml"
+      ## Due to the fact that the kubelet might be configured
+      ## without a kubelet-config file, we use a work-around
+      ## of pointing to the systemd service file (which can also
+      ## hold kubelet configuration).
+      ## Note: The following paths must match the one under 'svc'
+      - "/etc/systemd/system/k3s.service"
+
+  proxy:
+    optional: true
+    bins:
+      - "k3s agent --kube-proxy-args"
+    confs:
+      - /var/snap/microk8s/current/args/kube-proxy
+    kubeconfig:
+      - "/var/lib/rancher/k3s/agent/kubeproxy.kubeconfig"
+    svc:
+      - "/etc/systemd/system/k3s.service"

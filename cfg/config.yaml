@@ -25,14 +25,12 @@ master:
       - "hyperkube apiserver"
       - "hyperkube kube-apiserver"
       - "apiserver"
-      - "k3s server --kube-apiserver-arg"
     confs:
       - /etc/kubernetes/manifests/kube-apiserver.yaml
       - /etc/kubernetes/manifests/kube-apiserver.yml
       - /etc/kubernetes/manifests/kube-apiserver.manifest
       - /var/snap/kube-apiserver/current/args
       - /var/snap/microk8s/current/args/kube-apiserver
-      - /var/lib/rancher/k3s/server/cred/api-server.kubeconfig
     defaultconf: /etc/kubernetes/manifests/kube-apiserver.yaml
 
   scheduler:
@@ -41,14 +39,12 @@ master:
       - "hyperkube scheduler"
       - "hyperkube kube-scheduler"
       - "scheduler"
-      - "k3s server --kube-scheduler-arg"
     confs:
       - /etc/kubernetes/manifests/kube-scheduler.yaml
       - /etc/kubernetes/manifests/kube-scheduler.yml
       - /etc/kubernetes/manifests/kube-scheduler.manifest
       - /var/snap/kube-scheduler/current/args
       - /var/snap/microk8s/current/args/kube-scheduler
-      - /var/lib/rancher/k3s/server/cred/scheduler.kubeconfig
     defaultconf: /etc/kubernetes/manifests/kube-scheduler.yaml
 
   controllermanager:
@@ -58,14 +54,12 @@ master:
       - "hyperkube controller-manager"
       - "hyperkube kube-controller-manager"
       - "controller-manager"
-      - "k3s server --kube-controller-manager-arg"
     confs:
       - /etc/kubernetes/manifests/kube-controller-manager.yaml
       - /etc/kubernetes/manifests/kube-controller-manager.yml
       - /etc/kubernetes/manifests/kube-controller-manager.manifest
       - /var/snap/kube-controller-manager/current/args
       - /var/snap/microk8s/current/args/kube-controller-manager
-      - /var/lib/rancher/k3s/server/cred/controller.kubeconfig
     defaultconf: /etc/kubernetes/manifests/kube-controller-manager.yaml
 
   etcd:
@@ -104,7 +98,6 @@ node:
       - "/etc/kubernetes/certs/ca.crt"
       - "/etc/kubernetes/cert/ca.pem"
       - "/var/snap/microk8s/current/certs/ca.crt"
-      - "/var/lib/rancher/k3s/agent/client-ca.crt"
     svc:
       # These paths must also be included
       #  in the 'confs' property below
@@ -113,17 +106,14 @@ node:
       - "/lib/systemd/system/kubelet.service"
       - "/etc/systemd/system/snap.kubelet.daemon.service"
       - "/etc/systemd/system/snap.microk8s.daemon-kubelet.service"
-      - "/etc/systemd/system/k3s.service"
     bins:
       - "hyperkube kubelet"
       - "kubelet"
-      - "k3s agent"
     kubeconfig:
       - "/etc/kubernetes/kubelet.conf"
       - "/var/lib/kubelet/kubeconfig"
       - "/etc/kubernetes/kubelet-kubeconfig"
       - "/var/snap/microk8s/current/credentials/kubelet.config"
-      - "/var/lib/rancher/k3s/agent/kubelet.kubeconfig"
     confs:
       - "/var/lib/kubelet/config.yaml"
       - "/var/lib/kubelet/config.yml"
@@ -134,7 +124,6 @@ node:
       - "/var/lib/kubelet/kubeconfig"
       - "/var/snap/kubelet/current/args"
       - "/var/snap/microk8s/current/args/kubelet"
-      - "/etc/rancher/k3s/k3s.yaml"
       ## Due to the fact that the kubelet might be configured
       ## without a kubelet-config file, we use a work-around
       ## of pointing to the systemd service file (which can also
@@ -145,7 +134,6 @@ node:
       - "/lib/systemd/system/kubelet.service"
       - "/etc/systemd/system/snap.kubelet.daemon.service"
       - "/etc/systemd/system/snap.microk8s.daemon-kubelet.service"
-      - "/etc/systemd/system/k3s.service"
     defaultconf: "/var/lib/kubelet/config.yaml"
     defaultsvc: "/etc/systemd/system/kubelet.service.d/10-kubeadm.conf"
     defaultkubeconfig: "/etc/kubernetes/kubelet.conf"
@@ -169,11 +157,9 @@ node:
       - "/etc/kubernetes/kubelet-kubeconfig"
       - "/var/lib/kubelet/kubeconfig"
       - "/var/snap/microk8s/current/credentials/proxy.config"
-      - "/var/lib/rancher/k3s/agent/kubeproxy.kubeconfig"
     svc:
       - "/lib/systemd/system/kube-proxy.service"
       - "/etc/systemd/system/snap.microk8s.daemon-proxy.service"
-      - "/etc/systemd/system/k3s.service"
     defaultconf: /etc/kubernetes/addons/kube-proxy-daemonset.yaml
     defaultkubeconfig: "/etc/kubernetes/proxy.conf"
 
