@@ -16,7 +16,7 @@ master:
       #  in the 'confs' property below
       - "/etc/systemd/system/k3s.service"
     bins:
-      - "k3s server"
+      - "k3s"
     kubeconfig:
       - "/var/lib/rancher/k3s/server/cred/admin.kubeconfig"
     confs:
@@ -62,7 +62,7 @@ node:
       #  in the 'confs' property below
       - "/etc/systemd/system/k3s.service"
     bins:
-      - "k3s agent"
+      - "k3s"
     kubeconfig:
       - "/var/lib/rancher/k3s/agent/kubelet.kubeconfig"
     confs:
