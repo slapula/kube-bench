@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kube-bench
+spec:
+  template:
+    spec:
+      hostPID: true
+      containers:
+        - name: kube-bench
+          image: slapula/kube-bench:latest
+          command: ["kube-bench", "node", "--benchmark", "k3s-1.0"]
+          volumeMounts:
+            - name: var-lib-rancher
+              mountPath: /var/lib/rancher
+              readOnly: true
+            - name: etc-systemd
+              mountPath: /etc/systemd
+              readOnly: true
+            - name: etc-rancher
+              mountPath: /etc/rancher
+              readOnly: true
+      restartPolicy: Never
+      volumes:
+        - name: var-lib-rancher
+          hostPath:
+            path: "/var/lib/rancher/"
+        - name: etc-systemd
+          hostPath:
+            path: "/etc/systemd"
+        - name: etc-rancher
+          hostPath:
+            path: "/etc/rancher"
+        - name: usr-local-bin
+          hostPath:
+            path: "/usr/local/bin"
