@@ -117,7 +117,7 @@ node:
     bins:
       - "hyperkube kubelet"
       - "kubelet"
-      - "k3s agent --kubelet-args"
+      - "k3s agent"
     kubeconfig:
       - "/etc/kubernetes/kubelet.conf"
       - "/var/lib/kubelet/kubeconfig"
