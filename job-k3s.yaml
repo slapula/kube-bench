@@ -24,7 +24,7 @@ spec:
               mountPath: /etc/rancher
               readOnly: true
             - name: usr-local-bin
-              mountPath: "/usr/local/bin/k3s"
+              mountPath: "/usr/bin/k3s"
       restartPolicy: Never
       volumes:
         - name: var-lib-kubelet

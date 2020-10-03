@@ -16,7 +16,7 @@ master:
       #  in the 'confs' property below
       - "/etc/systemd/system/k3s.service"
     bins:
-      - "k3s"
+      - "k3s-server"
     kubeconfig:
       - "/var/lib/rancher/k3s/server/cred/admin.kubeconfig"
     confs:
@@ -31,21 +31,21 @@ master:
   apiserver:
     optional: true
     bins:
-      - "k3s server --kube-apiserver-arg"
+      - "k3s-server"
     confs:
       - /var/lib/rancher/k3s/server/cred/api-server.kubeconfig
 
   scheduler:
     optional: true
     bins:
-      - "k3s server --kube-scheduler-arg"
+      - "k3s-server"
     confs:
       - /var/lib/rancher/k3s/server/cred/scheduler.kubeconfig
 
   controllermanager:
     optional: true
     bins:
-      - "k3s server --kube-controller-manager-arg"
+      - "k3s-server"
     confs:
       - /var/lib/rancher/k3s/server/cred/controller.kubeconfig
 
@@ -62,7 +62,7 @@ node:
       #  in the 'confs' property below
       - "/etc/systemd/system/k3s.service"
     bins:
-      - "k3s"
+      - "k3s-agent"
     kubeconfig:
       - "/var/lib/rancher/k3s/agent/kubelet.kubeconfig"
     confs:
@@ -77,9 +77,7 @@ node:
   proxy:
     optional: true
     bins:
-      - "k3s agent --kube-proxy-args"
-    confs:
-      - /var/snap/microk8s/current/args/kube-proxy
+      - "k3s-agent"
     kubeconfig:
       - "/var/lib/rancher/k3s/agent/kubeproxy.kubeconfig"
     svc:
