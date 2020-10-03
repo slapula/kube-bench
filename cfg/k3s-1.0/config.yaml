@@ -62,7 +62,7 @@ node:
       #  in the 'confs' property below
       - "/etc/systemd/system/k3s.service"
     bins:
-      - "k3s-agent"
+      - "/usr/local/bin/k3s"
     kubeconfig:
       - "/var/lib/rancher/k3s/agent/kubelet.kubeconfig"
     confs:
@@ -77,7 +77,7 @@ node:
   proxy:
     optional: true
     bins:
-      - "k3s-agent"
+      - "/usr/local/bin/k3s"
     kubeconfig:
       - "/var/lib/rancher/k3s/agent/kubeproxy.kubeconfig"
     svc:
