@@ -146,7 +146,6 @@ node:
       - "hyperkube proxy"
       - "hyperkube kube-proxy"
       - "proxy"
-      - "k3s agent --kube-proxy-args"
     confs:
       - /etc/kubernetes/proxy
       - /etc/kubernetes/addons/kube-proxy-daemonset.yaml
