@@ -212,7 +212,7 @@ func verifyBin(bin string) bool {
 	// The binary needs to be the first word in the ps output, except that it could be preceded by a path
 	// e.g. /usr/bin/kubelet is a match for kubelet
 	// but apiserver is not a match for kube-apiserver
-	reFirstWord := regexp.MustCompile(`^(\S*\/*)` + bin)
+	reFirstWord := regexp.MustCompile(`^(\S*\/)*` + bin)
 	lines := strings.Split(out, "\n")
 	for _, l := range lines {
 		glog.V(3).Info(fmt.Sprintf("reFirstWord.Match(%s)", l))
