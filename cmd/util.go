@@ -219,6 +219,10 @@ func verifyBin(bin string) bool {
 		if reFirstWord.Match([]byte(l)) {
 			return true
 		}
+		// Exception made for k3s since it manages both server and client processes/components
+		if strings.HasPrefix(fmt.Sprintf("%s", reFirstWord), "k3s") && strings.HasPrefix(l, "k3s") {
+			return true
+		}
 	}
 
 	return false

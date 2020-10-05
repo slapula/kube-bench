@@ -156,6 +156,20 @@ func TestGetBinaries(t *testing.T) {
 			exp:       map[string]string{"apiserver": "kube-apiserver", "thing": "thing"},
 			expectErr: true,
 		},
+		{
+			// exception for k3s binary
+			config:    map[string]interface{}{"components": []string{"apiserver"}, "apiserver": map[string]interface{}{"bins": []string{"k3s-server"}}},
+			psOut:     "k3s-server",
+			exp:       map[string]string{"apiserver": "k3s-server"},
+			expectErr: false,
+		},
+		{
+			// missing k3s process
+			config:    map[string]interface{}{"components": []string{"apiserver"}, "apiserver": map[string]interface{}{"bins": []string{"k3s-server"}}},
+			psOut:     "otherthing",
+			exp:       map[string]string{"apiserver": "k3s-server"},
+			expectErr: true,
+		},
 	}
 
 	v := viper.New()
