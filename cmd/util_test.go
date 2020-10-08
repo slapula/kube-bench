@@ -159,7 +159,7 @@ func TestGetBinaries(t *testing.T) {
 		{
 			// exception for k3s binary
 			config:    map[string]interface{}{"components": []string{"apiserver"}, "apiserver": map[string]interface{}{"bins": []string{"k3s-server"}}},
-			psOut:     "k3s-server",
+			psOut:     "/usr/local/bin/k3s",
 			exp:       map[string]string{"apiserver": "k3s-server"},
 			expectErr: false,
 		},
