@@ -215,6 +215,7 @@ func verifyBin(bin string) bool {
 	reFirstWord := regexp.MustCompile(`^(\S*\/)*` + bin)
 	lines := strings.Split(out, "\n")
 	for _, l := range lines {
+		glog.V(3).Info(fmt.Sprintf("reFirstWord: %s", reFirstWord))
 		glog.V(3).Info(fmt.Sprintf("reFirstWord.Match(%s)", l))
 		if reFirstWord.Match([]byte(l)) {
 			return true
