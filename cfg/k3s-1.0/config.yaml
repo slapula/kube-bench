@@ -51,10 +51,10 @@ master:
 
 node:
   components:
-    - agent
+    - kubelet
     - proxy
 
-  agent:
+  kubelet:
     cafile:
       - "/var/lib/rancher/k3s/agent/client-ca.crt"
     svc:
