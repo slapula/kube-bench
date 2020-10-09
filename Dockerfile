@@ -13,7 +13,7 @@ FROM alpine:3.12 AS run
 WORKDIR /opt/kube-bench/
 # add GNU ps for -C, -o cmd, and --no-headers support
 # https://github.com/aquasecurity/kube-bench/issues/109
-RUN apk --no-cache add procps
+RUN apk --no-cache add procps coreutils
 
 # Openssl is used by OpenShift tests
 # https://github.com/aquasecurity/kube-bench/issues/535
